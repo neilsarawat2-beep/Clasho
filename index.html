@@ -1,65 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>CLASS WAR</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>CLASS WAR</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <div id="menu">
     <h1>CLASS WAR</h1>
 
-    <div class="mode-select">
-        <button id="mode1p">1 Player (vs AI)</button>
-        <button id="mode2p">2 Player Local</button>
+    <div class="mode-buttons">
+        <button id="mode1p">1 PLAYER</button>
+        <button id="mode2p">2 PLAYER</button>
     </div>
 
-    <div id="deckInfo">
-        <p>Select exactly:</p>
-        <ul>
-            <li>5 Character Cards</li>
-            <li>3 Potion Cards</li>
-            <li>2 Building Cards</li>
-        </ul>
-    </div>
-
-    <button id="startGame">Start Game</button>
+    <button id="startBtn">ENTER WAR</button>
 </div>
 
 <canvas id="gameCanvas"></canvas>
 
 <script type="module">
+import { startGame } from "./game.js";
 
-import { DeckBuilder } from "./deckbuilder.js";
-import "./game.js";
+let mode = "1P";
 
-const deck = new DeckBuilder();
+document.getElementById("mode1p").onclick = () => mode = "1P";
+document.getElementById("mode2p").onclick = () => mode = "2P";
 
-let selectedMode = "1P";
-
-document.getElementById("mode1p").onclick = () => {
-    selectedMode = "1P";
-    alert("1 Player Mode Selected");
-};
-
-document.getElementById("mode2p").onclick = () => {
-    selectedMode = "2P";
-    alert("2 Player Mode Selected");
-};
-
-document.getElementById("startGame").onclick = () => {
-
-    if (!deck.isValidDeck()) {
-        alert("Deck not valid. Select 5 Characters, 3 Potions, 2 Buildings.");
-        return;
-    }
-
+document.getElementById("startBtn").onclick = () => {
     document.getElementById("menu").style.display = "none";
     document.getElementById("gameCanvas").style.display = "block";
+    startGame(mode);
 };
-
 </script>
 
 </body>
